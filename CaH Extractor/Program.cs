@@ -13,7 +13,6 @@ using CaH.Shared.Net;
 using CaH.Shared.Poco;
 using Microsoft.VisualStudio.Workspace.Async;
 using Newtonsoft.Json;
-using NHunspell;
 
 namespace CaH_Extractor
 {
@@ -24,7 +23,6 @@ namespace CaH_Extractor
 
         private static void Main(string[] args)
         {
-            ProcessHunspell();
             Logic();
 
             Console.ReadLine();
@@ -86,29 +84,6 @@ namespace CaH_Extractor
             }
 
             Debugger.Break();
-        }
-
-        private const string dbStore = @"F:\File\Dokumente\visual studio 2017\Projects\CaH Extractor\Dictionaries\dictionaries-master";
-
-        private static void ProcessHunspell()
-        {
-            using (var hunspell = GetHunspell("de_DE"))
-            {
-                // Process all your words here, don't create the Hunspell object for every word.
-                var dest = "Kartentext";
-
-                var erg = hunspell.Analyze(dest);
-                var erg1 = hunspell.Spell(dest);
-
-                var erg2 = hunspell.Stem(dest);
-
-                Debugger.Break();
-            }
-        }
-
-        private static Hunspell GetHunspell(string loc)
-        {
-            return new Hunspell($"{dbStore}\\{loc}\\{loc}.aff", $"{dbStore}\\{loc}\\{loc}.dic");
         }
 
         private static void SaveAllDeck(List<DeckContainer> db)
